@@ -19,6 +19,37 @@
     }
   ],
   "paths": {
+    "/client/fetchBalance": {
+      "get": {
+        "description": "Fetch your account balance",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Plant response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/balance"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/client/initiatepayout": {
       "get": {
         "description": "Returns all plants from the system that the user has access to",
@@ -95,39 +126,6 @@
           }
         }
       }
-    },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "webhooks": {
@@ -154,15 +152,65 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
+      "balance": {
         "required": ["name"],
         "type": "object",
         "properties": {
-          "name": {
+          "status": {
             "description": "The name of the plant",
-            "type": "string"
+            "type": "boolean"
           },
-          "tag": {
+          "statusCode": {
+            "description": "Tag to specify the type",
+            "type": "integer"
+          },
+          "data": {
+            "description": "Tag to specify the type",
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "description": "The name of the plant",
+                "type": "string"
+              },
+              "lastName": {
+                "description": "The name of the plant",
+                "type": "string"
+              },
+              "businessName": {
+                "description": "The name of the plant",
+                "type": "string"
+              },
+              "businessAddress": {
+                "description": "The name of the plant",
+                "type": "string"
+              },
+              "phone": {
+                "description": "The name of the plant",
+                "type": "string"
+              },
+              "account_number": {
+                "description": "The name of the plant",
+                "type": "string"
+              },
+              "ifsc_code": {
+                "description": "The name of the plant",
+                "type": "string"
+              },
+              "Balance": {
+                "description": "The name of the plant",
+                "type": "integer"
+              },
+              "email": {
+                "description": "The name of the plant",
+                "type": "string"
+              },
+              "yetToSettle": {
+                "description": "The name of the plant",
+                "type": "integer"
+              }
+            }
+          },
+          "message": {
             "description": "Tag to specify the type",
             "type": "string"
           }
@@ -187,14 +235,23 @@
         ]
       },
       "Error": {
-        "required": ["error", "message"],
+        "required": ["error"],
         "type": "object",
         "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
+          "status": {
+            "description": "The name of the plant",
+            "type": "boolean"
+          },
+          "statusCode": {
+            "description": "Tag to specify the type",
+            "type": "integer"
+          },
+          "data": {
+            "description": "Tag to specify the type",
+            "type": "object"
           },
           "message": {
+            "description": "Tag to specify the type",
             "type": "string"
           }
         }

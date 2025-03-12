@@ -19,7 +19,7 @@
           },
           {
             "group": "Endpoints",
-            "pages": ["api-reference/endpoint/create"]
+            "pages": ["api-reference/endpoint/delete", "api-reference/endpoint/create"]
           }
         ]
       },
